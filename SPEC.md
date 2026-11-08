@@ -1,179 +1,160 @@
-# SPEC.md – Wolff's Naturkosmetik
 
-**Version:** 1.0  
-**Stand:** Nach Meeting 1  
-**Projekt:** Smart Applications – Anforderungen und App für Wolff's Naturkosmetik
 
-## 1. Ziel der App
+# SPEC.md
+## Wolff's Naturkosmetik
 
-Die App soll Nina bei der Verwaltung ihres Naturkosmetikgeschäfts unterstützen. Bisher erledigt sie viele Aufgaben über Instagram-Nachrichten und Excel-Tabellen. Dadurch entstehen Fehler, zum Beispiel bei Zahlungseingängen, Lagerbeständen und Allergieangaben.
+**Version:** 2  
+**Grundlage:** Meeting 1 und Meeting 2  
+**Kundin:** Nina Wolf  
+**Projekt:** Smart Applications
 
-Die wichtigsten Ziele sind eine bessere Übersicht über Bestellungen und Zahlungen, eine gemeinsame Lagerverwaltung und eine einfachere Verwaltung der Kundendaten.
+## 1. Ziel der Anwendung
+
+Nina Wolf verkauft selbst hergestellte Naturkosmetik über Instagram, auf Märkten und an einige Wiederverkäufer. Viele Abläufe werden derzeit manuell über Excel, Instagram-Nachrichten und E-Mails organisiert.
+
+Die Anwendung soll diese Abläufe vereinfachen und die wichtigsten Informationen zentral speichern. Dazu gehören Kunden, Bestellungen, Zahlungen, Produkte und Lagerbestände. Besonders wichtig sind eine bessere Übersicht über offene Zahlungen und die Vermeidung von Fehlern beim Verkauf und Versand.
+
+Zusätzlich soll die Anwendung die monatliche Self-Care-Box verwalten. Dabei sollen Abonnements, die Zusammenstellung der Boxen und die benötigten Lagerbestände berücksichtigt werden.
 
 ## 2. Anforderungen
 
-Die App soll folgende Funktionen ermöglichen:
+Die Anwendung soll folgende Funktionen unterstützen:
 
-- Kunden und ihre Kontaktdaten, Lieferadressen und Allergien speichern.
-- Bestellungen aus verschiedenen Verkaufskanälen verwalten.
-- Zahlungen und offene Beträge übersichtlich anzeigen.
-- Produkte und deren Inhaltsstoffe verwalten.
-- Chargen mit Herstellungsdatum, Menge und Mindesthaltbarkeitsdatum erfassen.
-- Lagerbestände aktuell halten, damit Produkte nicht doppelt verkauft werden.
-- Versand, Abholung und Lieferungen dokumentieren.
-- Stammkunden erkennen und mögliche Treuerabatte berücksichtigen.
-- Rabattaktionen und deren Bestellungen nachvollziehen.
-- Bei Allergien automatisch warnen, sowohl bei der Bestellung als auch beim Packen.
+- Kunden und deren Kontaktdaten verwalten.
+- Allergien und Unverträglichkeiten der Kunden speichern und sichtbar anzeigen.
+- Produkte mit Zutaten, Allergenen, Preisen und weiteren Informationen verwalten.
+- Produktionschargen mit Herstellungsdatum, Menge und Mindesthaltbarkeitsdatum erfassen.
+- Lagerbestände für Online-Bestellungen und Marktverkäufe gemeinsam verwalten.
+- Bestellungen anlegen und ihren Bearbeitungsstatus anzeigen.
+- Zahlungen einzelnen Bestellungen zuordnen und offene Zahlungen kenntlich machen.
+- Lieferungen und Sendungsnummern speichern.
+- Verschiedene Preise für Privatkunden und Wiederverkäufer berücksichtigen.
+- Rabattaktionen und Gutscheincodes verwalten.
 
-## 3. Datenmodell – Entitäten und Attribute
+### Neue Anforderung aus Meeting 2: Self-Care-Monthly-Box
 
-### 3.1 Kunde
-- Kundennummer
-- Vorname und Nachname
-- E-Mail-Adresse
-- Telefonnummer
-- Lieferadresse
-- Kundentyp (Neu- oder Stammkunde)
-- Allergien und Unverträglichkeiten
-- Besondere Wünsche
+Die Anwendung soll ein monatliches Abonnement für die Self-Care-Box verwalten. Die Box kostet 39 Euro und enthält normalerweise vier ausgewählte Produkte.
 
-### 3.2 Produkt
-- Produktnummer
-- Name
-- Beschreibung
-- Zutaten
-- Enthaltene Allergene
-- Vegan (Ja/Nein)
-- B2C-Preis
-- B2B-Preis
-- Herstellungs- bzw. Aushärtezeit
+Dabei sollen folgende Abläufe unterstützt werden:
 
-### 3.3 Charge
-- Chargennummer
-- Produktnummer
-- Herstellungsdatum
-- Produzierte Menge
-- Aktuelle Restmenge
-- Mindesthaltbarkeitsdatum
-- Verfügbar ab (nach der Aushärtezeit)
+- Abonnements mit Startdatum und aktuellem Status verwalten.
+- Für jeden Monat die vier ausgewählten Produkte speichern.
+- Die Allergien und veganen Anforderungen der Kunden bei der Zusammenstellung berücksichtigen.
+- Den Lagerbestand prüfen und den Bedarf für aktive Abonnements frühzeitig berechnen.
+- Kunden über die monatliche Zusammenstellung und den voraussichtlichen Liefertermin informieren.
+- Abonnements pausieren und wieder aktivieren können.
+- Einzelne Monatsboxen überspringen und Abonnements kündigen können.
 
-### 3.4 Bestellung
-- Bestellnummer
-- Kundennummer
-- Bestelldatum
-- Verkaufskanal (Instagram, Markt oder B2B)
-- Bestellstatus
-- Zahlungsstatus
-- Versand- bzw. Abholart
-- Gesamtbetrag
-- Verwendeter Rabattcode
+Eine Pause soll höchstens zwei Monate hintereinander dauern. Danach wird das Abonnement automatisch fortgesetzt. Eine Kündigung soll mit einer Vorlaufzeit von zwei bis drei Wochen vor der nächsten Box möglich sein.
 
-### 3.5 Bestellposition
-- Positionsnummer
-- Bestellnummer
-- Produktnummer
-- Bestellte Menge
-- Einzelpreis
-- Gesamtpreis
+Nina möchte außerdem für jeden Monat vier Hauptprodukte und zwei bis drei Ersatzprodukte festlegen. Wenn kein passendes Ersatzprodukt für einen Kunden verfügbar ist, soll Nina informiert werden. Sie entscheidet dann, ob sie ein anderes Produkt auswählt oder eine kleinere Box mit entsprechender Gutschrift verschickt.
 
-### 3.6 Zahlung
-- Zahlungsnummer
-- Zahlungsdatum
-- Betrag
-- Zahlungsart (Überweisung, Barzahlung oder SumUp)
-- Verwendungszweck
-- Zahlungsstatus
+## 3. Entitäten
 
-### 3.7 Lieferung
-- Lieferungsnummer
-- Bestellnummer
-- Lieferart (DHL, Abholung oder eigene Lieferung)
-- Lieferadresse
-- Sendungsnummer
-- Lieferstatus
+Für die Anwendung werden acht Entitäten vorgesehen.
 
-### 3.8 Marketingaktion
-- Aktionsnummer
-- Name der Aktion
-- Rabattcode
-- Rabattart und Rabatthöhe
-- Gültigkeitszeitraum
-- Verkaufskanal
+| Entität | Attribute |
+|---|---|
+| **Kunde** | Kunden-ID, Name, Adresse, E-Mail, Telefonnummer, Allergien, Kundentyp |
+| **Produkt** | Produkt-ID, Name, Beschreibung, Zutaten, Allergene, vegan, Verkaufspreis, Wiederverkäuferpreis, Herstellungsdauer |
+| **Charge** | Chargen-ID, Produkt-ID, Herstellungsdatum, produzierte Menge, Restmenge, Mindesthaltbarkeitsdatum |
+| **Bestellung** | Bestell-ID, Kunden-ID, Bestelldatum, Bestellkanal, Bestellart, Gutscheincode, Status, Gesamtbetrag |
+| **Bestellposition** | Positions-ID, Bestell-ID, Produkt-ID, Menge, Einzelpreis |
+| **Zahlung** | Zahlungs-ID, Zahlungsdatum, Betrag, Zahlungsart, Zahlungsstatus, Verwendungszweck |
+| **Lieferung** | Lieferungs-ID, Bestell-ID, Versanddatum, Versandart, Sendungsnummer, Lieferstatus |
+| **Abonnement** | Abonnement-ID, Kunden-ID, Startdatum, Status, monatlicher Preis, Pausenbeginn, Pausenende, nächster Liefertermin |
 
-## 4. Beziehungen zwischen den Entitäten
+Marketingaktionen und Gutscheincodes werden über die Bestelldaten erfasst. So können Bestellungen später einer Aktion zugeordnet werden.
 
-1. **Kunde – Bestellung (1:n):** Ein Kunde kann mehrere Bestellungen aufgeben. Jede Bestellung gehört zu einem Kunden.
+## 4. Beziehungen
 
-2. **Bestellung – Bestellposition (1:n):** Eine Bestellung enthält eine oder mehrere Bestellpositionen. Jede Position gehört zu einer Bestellung.
+Die Entitäten stehen in folgenden Beziehungen zueinander:
 
-3. **Produkt – Bestellposition (1:n):** Ein Produkt kann in vielen Bestellpositionen vorkommen. Eine Bestellposition bezieht sich auf ein Produkt.
+1. Ein Kunde kann mehrere Bestellungen aufgeben. Eine Bestellung gehört jeweils zu einem Kunden (1:n).
+2. Eine Bestellung kann mehrere Bestellpositionen enthalten. Jede Bestellposition gehört zu einer Bestellung (1:n).
+3. Ein Produkt kann in mehreren Bestellpositionen vorkommen. Eine Bestellposition bezieht sich auf ein Produkt (1:n).
+4. Ein Produkt kann in mehreren Chargen hergestellt werden. Jede Charge gehört zu einem Produkt (1:n).
+5. Eine Bestellposition kann Produkte aus mehreren Chargen enthalten. Eine Charge kann wiederum für mehrere Bestellpositionen verwendet werden (n:m).
+6. Eine Bestellung kann durch mehrere Zahlungen bezahlt werden. Eine Zahlung kann sich auch auf mehrere Bestellungen beziehen, zum Beispiel wenn ein Kunde mehrere Bestellungen gemeinsam überweist (n:m).
+7. Eine Bestellung kann mehrere Lieferungen haben. Jede Lieferung gehört zu einer Bestellung (1:n).
+8. Ein Kunde kann mehrere Abonnements haben. Jedes Abonnement gehört zu einem Kunden (1:n).
+9. Ein Abonnement kann mehrere monatliche Bestellungen erzeugen. Jede dieser Bestellungen gehört zu einem Abonnement (1:n).
 
-4. **Produkt – Charge (1:n):** Ein Produkt kann in mehreren Chargen hergestellt werden. Jede Charge gehört zu einem Produkt.
+## 5. Geschäftsregeln (Business Rules)
 
-5. **Charge – Bestellposition (n:m):** Eine Bestellposition kann bei Bedarf aus mehreren Chargen beliefert werden. Eine Charge kann wiederum für mehrere Bestellpositionen verwendet werden.
+**BR1: Verwendung älterer Chargen**
 
-6. **Bestellung – Zahlung (n:m):** Eine Bestellung kann mehrere Zahlungen haben. Eine Zahlung kann auch mehreren Bestellungen zugeordnet werden, wenn eine Kundin mehrere Bestellungen zusammen überweist.
+Bei der Zusammenstellung einer Bestellung soll zuerst die älteste geeignete Charge verwendet werden. Dadurch wird verhindert, dass ältere Produkte unnötig lange im Lager bleiben. Produkte dürfen außerdem erst verkauft werden, wenn die erforderliche Reifezeit abgeschlossen ist. Abgelaufene Produkte dürfen nicht mehr verkauft werden.
 
-7. **Bestellung – Lieferung (1:n):** Eine Bestellung kann mehrere Lieferungen haben, zum Beispiel wenn eine Ersatzsendung notwendig wird. Jede Lieferung gehört zu einer Bestellung.
+Quelle: M1-05
 
-8. **Marketingaktion – Bestellung (1:n):** Eine Marketingaktion kann für mehrere Bestellungen verwendet werden. Eine Bestellung kann einer Marketingaktion zugeordnet werden.
+**BR2: Berücksichtigung von Allergien**
 
-## 5. Geschäftsregeln
+Allergien und Unverträglichkeiten müssen beim Kundenprofil gespeichert werden. Bei einer Bestellung und beim Verpacken muss ein deutlicher Hinweis erscheinen, wenn ein Produkt einen Stoff enthält, auf den der Kunde reagiert.
 
-**BR-01 – Reihenfolge der Chargen (M1-01, M1-05)**  
-Bei Bestellungen soll grundsätzlich die älteste noch verwendbare Charge zuerst verwendet werden (FIFO). Produkte dürfen erst nach Ablauf ihrer Aushärtezeit verkauft werden. Abgelaufene Chargen dürfen nicht mehr verkauft werden.
+Quelle: M1-03, M1-04
 
-**BR-02 – Allergien und Unverträglichkeiten (M1-03, M1-04)**  
-Die Allergien eines Kunden müssen im Kundenprofil gespeichert werden. Enthält ein bestelltes Produkt einen Stoff, auf den der Kunde reagiert, muss die App beim Bestellen und beim Packen eine deutliche Warnung anzeigen.
+**BR3: Gemeinsamer Lagerbestand**
 
-**BR-03 – Lagerbestand (M1-05, M1-06, M1-09)**  
-Der Lagerbestand muss für alle Verkaufskanäle gemeinsam geführt werden. Verkäufe auf Märkten, Online-Bestellungen und Abholungen müssen berücksichtigt werden, damit ein Produkt nicht mehrfach verkauft wird.
+Der Lagerbestand muss für alle Verkaufskanäle gemeinsam geführt werden. Verkäufe auf Märkten und über Instagram müssen berücksichtigt werden, damit ein Produkt nicht gleichzeitig mehrfach verkauft oder reserviert wird, obwohl es nicht mehr verfügbar ist.
 
-**BR-04 – Zahlung vor Versand bei Online-Bestellungen (M1-01, M1-02, M1-07, M1-11)**  
-Bei normalen Online-Bestellungen muss der Zahlungseingang vor dem Versand nachvollziehbar geprüft werden. Für B2B-Kunden gilt die vereinbarte Zahlung auf Rechnung mit einem Zahlungsziel von 30 Tagen als Ausnahme.
+Quelle: M1-05, M1-06, M1-09
 
-**BR-05 – B2B-Bestellungen (M1-11)**  
-Bei Bestellungen von Wiederverkäufern müssen die gesonderten B2B-Preise und die vereinbarte Mindestbestellmenge berücksichtigt werden. Die Zahlung erfolgt auf Rechnung mit einem Zahlungsziel von 30 Tagen.
+**BR4: Zahlungsstatus und Versand**
 
-## 6. Widersprüche und ihre Auflösung
+Bei Online-Bestellungen muss vor dem Versand geprüft werden, ob die Zahlung eingegangen ist. Eine Bestellung darf erst als bezahlt markiert werden, wenn der Zahlungseingang bestätigt wurde. Für Wiederverkäufer gelten die vereinbarten Zahlungsbedingungen. Sie können ihre Bestellung auf Rechnung erhalten.
 
-### Widerspruch 1: Zahlungsarten
+Quelle: M1-01, M1-02, M1-07, M1-11
 
-Einerseits werden Online-Bestellungen ausschließlich per Überweisung bezahlt. Andererseits akzeptiert Nina auf Märkten Barzahlung und SumUp.
+**BR5: Bedingungen für Wiederverkäufer**
 
-**Auflösung:** Die Zahlungsart hängt vom Verkaufskanal ab. Bei Online-Bestellungen wird die Überweisung verwendet, bei Marktverkäufen sind Barzahlung und SumUp möglich.
+Wiederverkäufer erhalten eigene Preise und müssen die festgelegte Mindestbestellmenge erreichen. Die Zahlungsfrist beträgt 30 Tage. Die genauen Mindestmengen müssen noch festgelegt werden.
 
-### Widerspruch 2: Verkauf und Bestandsverwaltung
+Quelle: M1-11
 
-Der Lagerbestand wird bei Marktverkäufen teilweise erst am Ende des Tages in Excel aktualisiert. Gleichzeitig nimmt Nina weiterhin Online-Bestellungen an. Dadurch kann ein Produkt online noch als verfügbar angezeigt werden, obwohl es auf dem Markt bereits verkauft wurde.
+## 6. Widersprüche und Entscheidungen
 
-**Auflösung:** Alle Verkaufskanäle müssen auf denselben Lagerbestand zugreifen. Verkäufe und Reservierungen müssen zeitnah berücksichtigt werden.
+**Widerspruch 1: Unterschiedliche Zahlungsmethoden**
+
+Online-Bestellungen werden derzeit ausschließlich per Banküberweisung bezahlt. Auf Märkten nimmt Nina dagegen Bargeld und Kartenzahlungen über SumUp an.
+
+**Entscheidung:** Die Anwendung muss mehrere Zahlungsarten unterstützen. Die Zahlungsart wird bei jeder Bestellung beziehungsweise Zahlung gespeichert.
+
+Quelle: M1-01, M1-07
+
+**Widerspruch 2: Unterschiedliche Aktualisierung des Lagerbestands**
+
+Bei Online-Bestellungen prüft Nina den Bestand vorab in Excel. Verkäufe auf Märkten werden dagegen häufig erst am Ende des Tages eingetragen. Dadurch kann es passieren, dass ein Produkt online noch als verfügbar angezeigt wird, obwohl es auf dem Markt bereits verkauft wurde.
+
+**Entscheidung:** Alle Verkaufskanäle sollen auf denselben Lagerbestand zugreifen. Verkäufe müssen möglichst direkt erfasst werden, damit die Bestandszahlen aktuell bleiben.
+
+Quelle: M1-05, M1-06
 
 ## 7. Prioritäten
 
-### Hohe Priorität
-- Übersicht über bezahlte und offene Bestellungen
-- Zuordnung von Zahlungseingängen zu Bestellungen
-- Gemeinsame Lagerverwaltung für alle Verkaufskanäle
-- Verwaltung der Chargen und Mindesthaltbarkeitsdaten
-- Allergiewarnungen bei Bestellung und Verpackung
-
-### Mittlere Priorität
-- Verwaltung von Versand, Abholung und eigener Lieferung
-- Kundendaten und Bestellhistorie
-- Verwaltung von B2B-Bestellungen und unterschiedlichen Preisen
-
-### Niedrigere Priorität
-- Treuerabatte für Stammkunden
-- Informationen über neue Chargen an ausgewählte Kunden
-- Auswertung von Rabattaktionen und deren Erfolg
+| Priorität | Funktion | Begründung |
+|---|---|---|
+| Hoch | Bestellungen verwalten | Der aktuelle Ablauf ist zeitaufwendig und wird manuell durchgeführt. |
+| Hoch | Zahlungen überwachen | Offene und falsch zugeordnete Zahlungen führen zu Problemen beim Versand. |
+| Hoch | Lagerbestand verwalten | Doppelverkäufe sollen vermieden werden. |
+| Hoch | Allergiehinweise anzeigen | Allergien müssen beim Bestellen und Verpacken berücksichtigt werden. |
+| Mittel | Chargen verwalten | Herstellungsdatum, Reifezeit und Mindesthaltbarkeit müssen nachvollziehbar sein. |
+| Mittel | Lieferungen verwalten | Sendungsnummern und Lieferstatus sollen zentral gespeichert werden. |
+| Mittel | Kundenverwaltung | Wiederkehrende Kunden und ihre Informationen sollen leichter verwaltet werden. |
+| Mittel | Abonnements verwalten | Die monatlichen Boxen und ihre Zusammenstellung sollen planbar sein. |
+| Niedrig | Marketingaktionen auswerten | Nina möchte besser erkennen können, welche Aktionen zu Bestellungen führen. |
 
 ## 8. Offene Fragen
 
-- Ab wie vielen Bestellungen soll ein Kunde einen Treuerabatt erhalten und wie hoch soll dieser sein?
-- Wie genau wird die Mindestbestellmenge für B2B-Kunden festgelegt?
-- Sollen B2B-Kunden ihre Bestellungen später selbst über die App aufgeben können?
-- Wie soll die App Banküberweisungen automatisch erkennen und zuordnen?
-- Sollen Kunden ihre Bestellungen und den Lieferstatus selbst einsehen können?
-- Wie sollen Rabattaktionen und deren Wirtschaftlichkeit genau ausgewertet werden?
-- Soll die App Kunden automatisch über neue Chargen informieren können?
+Folgende Punkte müssen noch genauer geklärt werden:
+
+1. Wie hoch soll die Mindestbestellmenge für Wiederverkäufer sein?
+2. Sollen Kunden ihre normalen Bestellungen später selbst über eine App oder Website aufgeben können?
+3. Welche Möglichkeiten zur automatischen Zahlungszuordnung sollen angeboten werden?
+4. Wie sollen persönliche Abholungen und Lieferungen durch Nina selbst genau dokumentiert werden?
+5. Wie sollen Rabattaktionen automatisch ausgewertet werden?
+6. Wie sollen Bestandskorrekturen durchgeführt werden, wenn Produkte beschädigt werden oder nicht mehr verkauft werden dürfen?
+7. Welche Zahlungsmethode soll für die monatlichen Abonnements verwendet werden?
+8. Wie genau soll bei fehlgeschlagenen Abo-Zahlungen vorgegangen werden? Die im Meeting besprochenen Erinnerungen und erneuten Zahlungsversuche sind noch nicht endgültig festgelegt.
+9. Über welchen Kanal sollen Kunden die monatliche Vorschau und Informationen zu Änderungen ihrer Box erhalten?
+
